@@ -1,0 +1,425 @@
+/* ==========================================================================
+   Johannesburg SPCA — Stylesheet (v2)
+   Brief alignment:
+     Colour   — teal/turquoise for trust & calm, soft orange for urgent actions
+     Type     — rounded sans-serif (Poppins) headings, clear sans-serif (Open Sans) body
+     Layout   — card-based, mobile-first grid, sticky donate button, ample white space
+     UX       — large tap targets, cruelty report visible above the fold,
+                short path from Home to the adoption enquiry form
+   Signature — section headers styled as hanging kennel ID tags
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+
+:root {
+  --teal-deep:   #16504C;
+  --teal:        #1F6F6B;
+  --turquoise:   #2E9E97;
+  --teal-tint:   #DCEEEA;
+  --mint-bg:     #F1F6F4;
+  --card:        #FFFFFF;
+  --orange:      #F2994A;
+  --orange-dark: #D9782E;
+  --ink:         #1C2B29;
+  --ink-soft:    #4B5F5C;
+  --line:        #D7E4E1;
+
+  --font-display: 'Poppins', 'Segoe UI', sans-serif;
+  --font-body:    'Open Sans', 'Segoe UI', sans-serif;
+
+  --radius: 14px;
+  --shadow: 0 6px 18px rgba(22, 80, 76, 0.12);
+  --tap: 46px; /* minimum comfortable tap target */
+}
+
+/* ---------- Reset ---------- */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--mint-bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--teal-deep); text-decoration: none; }
+a:hover { text-decoration: underline; }
+hr { display: none; }
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Layout shell (mobile-first) ---------- */
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+section {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 36px 20px;
+  margin: 24px 0;
+}
+
+@media (min-width: 640px) {
+  section { padding: 44px clamp(24px, 5vw, 56px); margin: 32px 0; }
+}
+
+#home { background: transparent; box-shadow: none; padding: 40px 0 8px; }
+
+/* ---------- Header & sticky nav ---------- */
+
+header {
+  background: var(--teal-deep);
+  color: #fff;
+  padding: 24px 16px 0;
+  text-align: center;
+}
+header h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  margin: 0 0 6px;
+  letter-spacing: 0.3px;
+}
+header > p {
+  margin: 0 0 20px;
+  color: var(--teal-tint);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-size: 0.95rem;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--teal);
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+nav ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap);
+  color: #fff;
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.2px;
+}
+nav a:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
+
+/* pull Donate out as the sticky call-to-action in the nav */
+
+nav a[href="#donate"] {
+  background: var(--orange);
+  color: var(--ink);
+  border-radius: 999px;
+  margin: 7px 6px;
+  padding: 10px 22px;
+}
+nav a[href="#donate"]:hover { background: var(--orange-dark); }
+
+/* ---------- Cruelty banner — kept above the fold ---------- */
+
+.cruelty-banner {
+  background: var(--orange);
+  color: var(--ink);
+  text-align: center;
+  padding: 12px 16px;
+}
+.cruelty-banner p { margin: 0; font-weight: 600; font-size: 0.92rem; }
+.cruelty-banner a { color: var(--ink); text-decoration: underline; font-weight: 700; }
+
+/* ---------- Kennel-tag section headers (signature element) ---------- */
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--teal-deep);
+  position: relative;
+  display: inline-block;
+  background: var(--teal-tint);
+  border: 2px solid var(--turquoise);
+  border-radius: 12px;
+  padding: 10px 24px 10px 34px;
+  margin: 0 0 24px;
+}
+h2::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--mint-bg);
+  border: 2px solid var(--turquoise);
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  width: 18px;
+  height: 2px;
+  background: var(--turquoise);
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--teal);
+  margin: 26px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px dotted var(--line);
+}
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--teal-deep);
+  margin: 12px 0 2px;
+}
+
+p { color: var(--ink-soft); margin: 0 0 14px; }
+strong { color: var(--ink); }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; color: var(--ink-soft); }
+
+/* ---------- Buttons (large tap targets throughout) ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 10px 22px;
+  border: 2px solid var(--teal);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--teal-deep);
+  background: transparent;
+  cursor: pointer;
+}
+.btn:hover { background: var(--teal); color: #fff; text-decoration: none; }
+.btn-primary { background: var(--teal); color: #fff; }
+.btn-primary:hover { background: var(--teal-deep); }
+.btn-orange { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+.btn-orange:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.btn-small { min-height: 40px; padding: 8px 16px; font-size: 0.85rem; }
+
+.button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+
+/* ---------- Home ---------- */
+
+#home h2 { font-size: 1.8rem; }
+#home p:first-of-type { font-size: 1.05rem; }
+
+/* ---------- Card-based grids (Adopt / Gallery / News) ---------- */
+
+.adopt-grid,
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 16px;
+}
+@media (min-width: 560px) {
+  .adopt-grid,
+  .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+}
+
+.adopt-card {
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding-bottom: 16px;
+  text-align: center;
+}
+.adopt-card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--teal-tint); }
+.adopt-card p { margin: 0 0 12px; font-size: 0.9rem; }
+
+.gallery-grid figure {
+  margin: 0;
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.gallery-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--teal-tint); }
+.gallery-grid figcaption {
+  padding: 12px 14px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.4px;
+  color: var(--teal-deep);
+  border-top: 2px dotted var(--line);
+}
+
+.news-card {
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.news-card:last-child { margin-bottom: 0; }
+
+/* ---------- Filter form (Adopt-a-Pet search) ---------- */
+
+.filter-form {
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  max-width: 100%;
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (min-width: 640px) {
+  .field-row { grid-template-columns: repeat(3, 1fr); }
+}
+.field-row label { display: block; font-weight: 700; margin-bottom: 6px; }
+
+/* ---------- Forms (general) ---------- */
+
+form:not(.filter-form) {
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px clamp(16px, 4vw, 28px);
+  margin-top: 8px;
+  max-width: 460px;
+}
+form label {
+  display: block;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 12px 0 6px;
+}
+form label:first-child { margin-top: 0; }
+.radio-label { display: flex; align-items: center; min-height: var(--tap); font-weight: 600; }
+.radio-label input[type="radio"] { accent-color: var(--teal); margin-right: 10px; width: 20px; height: 20px; }
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background: #fff;
+  color: var(--ink);
+}
+textarea { min-height: 96px; }
+input:focus, select:focus, textarea:focus { border-color: var(--turquoise); }
+
+button[type="submit"] { margin-top: 14px; width: 100%; }
+@media (min-width: 480px) { button[type="submit"] { width: auto; } }
+
+.hotline { font-size: 1.05rem; }
+.hotline a { font-weight: 700; }
+
+#donate em { display: block; margin-top: 10px; color: var(--ink-soft); font-size: 0.9rem; }
+
+/* ---------- Contact / map ---------- */
+
+#contact p strong { color: var(--teal-deep); }
+.map-wrap {
+  margin-top: 18px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+/* ---------- Sticky floating donate button ---------- */
+
+.donate-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--orange);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+}
+.donate-float:hover { background: var(--orange-dark); text-decoration: none; }
+
+/* ---------- Footer ---------- */
+
+footer {
+  background: var(--teal-deep);
+  color: var(--teal-tint);
+  padding: 36px 16px 90px; /* extra bottom padding so the floating button never overlaps text */
+  margin-top: 40px;
+}
+footer h3 {
+  font-family: var(--font-display);
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding-bottom: 8px;
+  max-width: 1000px;
+  margin: 0 auto 14px;
+}
+footer p {
+  max-width: 1000px;
+  margin: 0 auto 10px;
+  font-size: 0.85rem;
+  color: var(--teal-tint);
+}
+footer a { color: #fff; text-decoration: underline; }
+
+/* ---------- Responsive tweaks ---------- */
+
+@media (max-width: 560px) {
+  nav ul { justify-content: flex-start; }
+  h2 { font-size: 1.3rem; padding: 8px 18px 8px 30px; }
+}
