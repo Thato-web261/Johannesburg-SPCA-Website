@@ -1,6 +1,6 @@
-#Johannesburg SPCA Website
+# Johannesburg SPCA Website
 
-**By ST10527628 **
+# By ST10527628
 
 ## Project overview
 •	Name: Johannesburg SPCA
