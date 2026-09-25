@@ -1,12 +1,24 @@
 /* ==========================================================================
-   Johannesburg SPCA — Stylesheet (v2)
+   Johannesburg SPCA — Stylesheet (v3 — Part 2 update)
    Brief alignment:
      Colour   — teal/turquoise for trust & calm, soft orange for urgent actions
      Type     — rounded sans-serif (Poppins) headings, clear sans-serif (Open Sans) body
      Layout   — card-based, mobile-first grid, sticky donate button, ample white space
      UX       — large tap targets, cruelty report visible above the fold,
                 short path from Home to the adoption enquiry form
+     Breakpoints — mobile (default) / tablet 641px-1023px / desktop 1024px+
    Signature — section headers styled as hanging kennel ID tags
+
+   CHANGELOG (Part 2):
+   - Added tablet-specific breakpoint (641px-1023px) so the adopt/gallery grids
+     step from 1 -> 2 -> 3 columns instead of jumping straight to desktop.
+   - Added :active pseudo-class states on all buttons and nav links (was only
+     :hover and :focus-visible before).
+   - Added .stats-row component for the homepage stat cards (Animals rescued /
+     Years active / Monthly sponsors) shown in the wireframe.
+   - Added .process-steps and .fee-table components for the Adopt page content.
+   - Added .contact-details component for the expanded Contact page info.
+   - Added .help-list component for the Donate page's ways-to-help content.
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
@@ -75,7 +87,7 @@ section {
   margin: 24px 0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 641px) {
   section { padding: 44px clamp(24px, 5vw, 56px); margin: 32px 0; }
 }
 
@@ -131,17 +143,20 @@ nav a {
   letter-spacing: 0.2px;
 }
 nav a:hover { background: rgba(255,255,255,0.12); text-decoration: none; }
+nav a:active { background: rgba(255,255,255,0.22); }
+nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; }
 
 /* pull Donate out as the sticky call-to-action in the nav */
 
-nav a[href="#donate"] {
+nav a[href*="donate.html"] {
   background: var(--orange);
   color: var(--ink);
   border-radius: 999px;
   margin: 7px 6px;
   padding: 10px 22px;
 }
-nav a[href="#donate"]:hover { background: var(--orange-dark); }
+nav a[href*="donate.html"]:hover { background: var(--orange-dark); }
+nav a[href*="donate.html"]:active { background: var(--orange-dark); }
 
 /* ---------- Cruelty banner — kept above the fold ---------- */
 
@@ -229,12 +244,16 @@ li { margin-bottom: 8px; color: var(--ink-soft); }
   color: var(--teal-deep);
   background: transparent;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 .btn:hover { background: var(--teal); color: #fff; text-decoration: none; }
+.btn:active { transform: scale(0.97); }
 .btn-primary { background: var(--teal); color: #fff; }
 .btn-primary:hover { background: var(--teal-deep); }
+.btn-primary:active { background: var(--teal-deep); }
 .btn-orange { background: var(--orange); border-color: var(--orange); color: var(--ink); }
 .btn-orange:hover { background: var(--orange-dark); border-color: var(--orange-dark); }
+.btn-orange:active { background: var(--orange-dark); }
 .btn-small { min-height: 40px; padding: 8px 16px; font-size: 0.85rem; }
 
 .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
@@ -243,6 +262,35 @@ li { margin-bottom: 8px; color: var(--ink-soft); }
 
 #home h2 { font-size: 1.8rem; }
 #home p:first-of-type { font-size: 1.05rem; }
+
+/* ---------- Stat cards (homepage, per wireframe) ---------- */
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  text-align: center;
+}
+.stat-card .stat-number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--teal-deep);
+}
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
 
 /* ---------- Card-based grids (Adopt / Gallery / News) ---------- */
 
@@ -253,9 +301,19 @@ li { margin-bottom: 8px; color: var(--ink-soft); }
   gap: 20px;
   margin-top: 16px;
 }
-@media (min-width: 560px) {
+
+/* Tablet: step to 2 columns before jumping to desktop's 3+ */
+@media (min-width: 641px) and (max-width: 1023px) {
   .adopt-grid,
-  .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .gallery-grid,
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop: full multi-column layout */
+@media (min-width: 1024px) {
+  .adopt-grid,
+  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  .stats-row { grid-template-columns: repeat(3, 1fr); }
 }
 
 .adopt-card {
@@ -296,6 +354,75 @@ li { margin-bottom: 8px; color: var(--ink-soft); }
 }
 .news-card:last-child { margin-bottom: 0; }
 
+/* ---------- Adopt page — fees + process (from research doc) ---------- */
+
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 22px;
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.fee-table th,
+.fee-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.fee-table th {
+  font-family: var(--font-display);
+  color: var(--teal-deep);
+  background: var(--teal-tint);
+}
+.fee-table tr:last-child td { border-bottom: none; }
+
+.process-steps {
+  padding-left: 0;
+  counter-reset: step;
+  list-style: none;
+}
+.process-steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 14px;
+}
+.process-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--turquoise);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Donate page — ways to help (from research doc) ---------- */
+
+.help-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 20px;
+}
+.help-list li {
+  background: var(--mint-bg);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
 /* ---------- Filter form (Adopt-a-Pet search) ---------- */
 
 .filter-form {
@@ -311,7 +438,7 @@ li { margin-bottom: 8px; color: var(--ink-soft); }
   gap: 14px;
   margin-bottom: 14px;
 }
-@media (min-width: 640px) {
+@media (min-width: 641px) {
   .field-row { grid-template-columns: repeat(3, 1fr); }
 }
 .field-row label { display: block; font-weight: 700; margin-bottom: 6px; }
@@ -351,9 +478,11 @@ textarea {
   font-size: 0.95rem;
   background: #fff;
   color: var(--ink);
+  transition: border-color 0.15s ease;
 }
 textarea { min-height: 96px; }
 input:focus, select:focus, textarea:focus { border-color: var(--turquoise); }
+input:active, select:active, textarea:active { border-color: var(--teal); }
 
 button[type="submit"] { margin-top: 14px; width: 100%; }
 @media (min-width: 480px) { button[type="submit"] { width: auto; } }
@@ -363,8 +492,17 @@ button[type="submit"] { margin-top: 14px; width: 100%; }
 
 #donate em { display: block; margin-top: 10px; color: var(--ink-soft); font-size: 0.9rem; }
 
-/* ---------- Contact / map ---------- */
+/* ---------- Contact page — details + map ---------- */
 
+.contact-details {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+@media (min-width: 641px) {
+  .contact-details { grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+}
 #contact p strong { color: var(--teal-deep); }
 .map-wrap {
   margin-top: 18px;
@@ -390,8 +528,10 @@ button[type="submit"] { margin-top: 14px; width: 100%; }
   font-weight: 700;
   border-radius: 999px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+  transition: background 0.15s ease;
 }
 .donate-float:hover { background: var(--orange-dark); text-decoration: none; }
+.donate-float:active { background: var(--orange-dark); transform: scale(0.97); }
 
 /* ---------- Footer ---------- */
 
@@ -417,9 +557,23 @@ footer p {
 }
 footer a { color: #fff; text-decoration: underline; }
 
-/* ---------- Responsive tweaks ---------- */
+/* ---------- Responsive tweaks (mobile) ---------- */
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   nav ul { justify-content: flex-start; }
   h2 { font-size: 1.3rem; padding: 8px 18px 8px 30px; }
+}
+
+/* ---------- Responsive tweaks (tablet) ---------- */
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  main { padding: 0 28px; }
+  header h1 { font-size: 2.1rem; }
+}
+
+/* ---------- Responsive tweaks (desktop) ---------- */
+
+@media (min-width: 1024px) {
+  main { padding: 0 32px; }
+  form:not(.filter-form) { max-width: 520px; }
 }
