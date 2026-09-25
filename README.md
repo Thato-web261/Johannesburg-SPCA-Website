@@ -40,5 +40,64 @@ The design should feel warm, trustworthy and calm, reflecting the organisation�
 •	Week 10: Testing and user-acceptance review.
 •	Week 11: Launch.
 •	Week 12: Post launch review, aligned with the subject’s series of assignments submission dates.
-This timeline is from when the assignment was released until when it was due
+This timeline is from when the assignment was released until part 1 is due
+
+## Sitemap
+
+Home (index.html)
+├── About Us (about.html)
+├── Education Programme (education.html)
+├── Adopt-a-Pet (adopt.html)
+├── Report Cruelty (cruelty.html)
+├── Gallery (gallery.html)
+├── Volunteer (volunteer.html)
+├── News / Blog (news.html)
+├── Contact (contact.html)
+└── Donate / Sponsor-a-Kennel (donate.html)
+
+## File and Folder Structure
+
+/ (root)
+├── index.html
+├── about.html
+├── adopt.html
+├── contact.html
+├── cruelty.html
+├── donate.html
+├── education.html
+├── gallery.html
+├── news.html
+├── volunteer.html
+├── style.css
+├── JOHANNESBURG SPCA/
+│   ├── gallery-1.jpg
+│   ├── gallery-2.jpg
+│   ├── gallery-3.jpg
+│   └── gallery-4.jpg
+
+## References
+
+Good Things Guy. 2023. *The Johannesburg SPCA celebrates 121 years of animal
+protection.* Available at:
+https://www.goodthingsguy.com/people/johannesburg-spca-121-birthday-animal-protection/
+[Accessed 16 August 2026].
+
+Johannesburg SPCA. 2026a. *Johannesburg SPCA – Animal Cruelty Must Stop. No
+Animal Should Suffer.* Available at: https://jhbspca.co.za/
+[Accessed 19 August 2026].
+
+Johannesburg SPCA. 2026b. *About Us.* Available at:
+https://jhbspca.co.za/about-us/ [Accessed 18 August 2026].
+
+Johannesburg SPCA. 2026c. *Adopt.* Available at: https://jhbspca.co.za/adopt/
+[Accessed 18 August 2026].
+
+Johannesburg SPCA. 2026d. *How to Help.* Available at:
+https://jhbspca.co.za/how-to-help/ [Accessed 19 August 2026].
+
+Johannesburg Lists. 2026. *Johannesburg SPCA: Adoption, donations and contact
+details.* Available at: https://johannesburglists.com/johannesburg-spca/
+[Accessed 16 August 2026].
+
+
 
