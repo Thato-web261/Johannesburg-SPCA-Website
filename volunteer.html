@@ -7,13 +7,13 @@
 <title>Volunteer Sign-Up | Johannesburg SPCA</title>
 <meta name="description" content="Volunteer at the Johannesburg SPCA and help care for shelter animals and community outreach.">
 <meta name="robots" content="index, follow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="canonical" href="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/volunteer.html">
+<link rel="canonical" href="https://johannesburganimalrescue.netlify.app/volunteer.html">
 <meta property="og:title" content="Volunteer Sign-Up | Johannesburg SPCA">
 <meta property="og:description" content="Volunteer at the Johannesburg SPCA and help care for shelter animals and community outreach.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/JOHANNESBURG SPCA/gallery-2.jpg">
+<meta property="og:image" content="https://johannesburganimalrescue.netlify.app/images/adoption-day-happy-ending.jpg">
 </head>
 <body data-page="volunteer">
 
@@ -41,7 +41,7 @@
 
 <div class="cruelty-banner">
 <p><strong>See an animal in danger?</strong> Call our 24-hour Cruelty Hotline:
-<a href="tel:0113863435">011 386 3435</a> — or <a href="cruelty.html">report it online</a>.</p>
+<a href="tel:0113863435">011 386 3435</a> (after hours: <a href="tel:0836041172">083 604 1172</a>) — or <a href="cruelty.html">report it online</a>.</p>
 </div>
 
 <main>
@@ -50,21 +50,22 @@
 <h2>Volunteer Sign-Up</h2>
 <p>Join our team of volunteers and help support our shelter, events, and community
 outreach programmes.</p>
-<form>
+<form id="volunteer-form" data-mail="Volunteer sign-up" novalidate>
 <label for="vname">Full Name</label>
-<input type="text" id="vname" name="vname">
+<input type="text" id="vname" name="vname" required minlength="2" maxlength="60">
 
 <label for="vemail">Email</label>
-<input type="email" id="vemail" name="vemail">
+<input type="email" id="vemail" name="vemail" required>
 
 <label for="vphone">Phone Number</label>
-<input type="tel" id="vphone" name="vphone">
+<input type="tel" id="vphone" name="vphone" required pattern="(\+27|0)[0-9 ]{9,12}">
 
 <label for="vavailability">Availability</label>
-<textarea id="vavailability" name="vavailability" rows="3"></textarea>
+<textarea id="vavailability" name="vavailability" rows="3" required minlength="5" maxlength="300"></textarea>
 
 <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>
+<div class="result-box" id="mail-result" role="status" aria-live="polite" hidden></div>
 </section>
 
 </main>
