@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Buddy",
+    "type": "dog",
+    "age": 2,
+    "img": "adoption-day-happy-ending",
+    "alt": "Buddy, a dog available for adoption"
+  },
+  {
+    "name": "Whiskers",
+    "type": "cat",
+    "age": 1,
+    "img": "stray-dogs-jspca-kennel",
+    "alt": "Whiskers, a cat available for adoption"
+  },
+  {
+    "name": "Rex",
+    "type": "dog",
+    "age": 5,
+    "img": "staff-feeding-kittens",
+    "alt": "Rex, a dog available for adoption"
+  },
+  {
+    "name": "Misty",
+    "type": "cat",
+    "age": 3,
+    "img": "volunteers-feeding-animals",
+    "alt": "Misty, a cat available for adoption"
+  }
+]

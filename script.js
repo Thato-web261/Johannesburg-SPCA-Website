@@ -1,13 +1,8 @@
 /* Johannesburg SPCA - Part 3 interactivity (vanilla JS + Leaflet) */
 (function () {
   'use strict';
-  var IMG = 'JOHANNESBURG SPCA/';
-  var ANIMALS = [
-    { name: 'Buddy', type: 'dog', age: 2, img: 'gallery-2.jpg', alt: 'Buddy, a dog available for adoption' },
-    { name: 'Whiskers', type: 'cat', age: 1, img: 'gallery-1.jpg', alt: 'Whiskers, a cat available for adoption' },
-    { name: 'Rex', type: 'dog', age: 5, img: 'gallery-3.jpg', alt: 'Rex, a dog available for adoption' },
-    { name: 'Misty', type: 'cat', age: 3, img: 'gallery-4.jpg', alt: 'Misty, a cat available for adoption' }
-  ];
+  var ANIMALS = [];
+  function loadAnimals() { return fetch('animals.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }); }
   var FEES = { dog: 1000, cat: 750, deposit: 500, sponsor: 400 };
   var page = document.body.getAttribute('data-page');
   function $(s, r) { return (r || document).querySelector(s); }
@@ -23,8 +18,8 @@
       }).sort(function (a, b) { return s.value === 'age' ? a.age - b.age : a.name.localeCompare(b.name); });
       grid.textContent = '';
       list.forEach(function (a) {
-        var c = el('div', 'adopt-card'), i = el('img'), l = el('a', 'btn btn-small', 'Enquire about ' + a.name);
-        i.src = IMG + a.img; i.alt = a.alt; i.loading = 'lazy';
+        var c = el('div', 'adopt-card'), i = el('div'), l = el('a', 'btn btn-small', 'Enquire about ' + a.name);
+        var b = 'images/' + a.img; i.innerHTML = '<picture><source type="image/webp" srcset="' + b + '-400.webp 400w, ' + b + '-720.webp 720w" sizes="(max-width: 640px) 100vw, 33vw"><img src="' + b + '.jpg" width="720" height="720" loading="lazy" alt=""></picture>'; i.querySelector('img').alt = a.alt;
         l.href = 'enquiry.html?pet=' + encodeURIComponent(a.name);
         c.append(i, el('h4', '', a.name), el('p', '', a.type.charAt(0).toUpperCase() + a.type.slice(1) + ' · ' + a.age + (a.age === 1 ? ' year' : ' years')), l);
         grid.appendChild(c);
@@ -32,7 +27,8 @@
       count.textContent = list.length ? list.length + ' animal(s) found.' : 'No animals match your search.';
     }
     [q, t, s].forEach(function (x) { x.addEventListener('input', render); });
-    render();
+    count.textContent = 'Loading animals…';
+    loadAnimals().then(function (d) { ANIMALS = d; render(); }).catch(function () { count.textContent = 'Sorry, the animal list could not be loaded. Please try again later.'; });
   }
 
   /* ---- Gallery lightbox ---- */
@@ -98,19 +94,19 @@
     var form = $('#enquiry-form'); if (!form) return;
     var out = $('#enquiry-result'), d = $('#e-date'); d.min = new Date().toISOString().slice(0, 10);
     var pet = new URLSearchParams(location.search).get('pet');
-    if (pet) { var a = ANIMALS.filter(function (x) { return x.name === pet; })[0]; if (a) $('#e-topic').value = 'adopt-' + a.type; }
+    if (pet) loadAnimals().then(function (l) { var a = l.filter(function (x) { return x.name === pet; })[0]; if (a) $('#e-topic').value = 'adopt-' + a.type; }).catch(function () {});
     liveCheck(form);
     form.addEventListener('submit', function (e) {
       e.preventDefault(); out.hidden = true;
       if (!validate(form)) { var bad = $('[aria-invalid=true]', form); if (bad) bad.focus(); return; }
       var name = $('#e-name').value.trim(), topic = $('#e-topic').value, when = d.value, msg;
-      new Promise(function (r) { setTimeout(r, 400); }).then(function () {
-        var type = topic.split('-')[1], avail = ANIMALS.filter(function (x) { return x.type === type; });
+      loadAnimals().then(function (list) {
+        var type = topic.split('-')[1], avail = list.filter(function (x) { return x.type === type; });
         if (topic.indexOf('adopt') === 0) msg = 'Thank you, ' + name + '. Adopting a ' + type + ' costs R' + FEES[type] + ' plus a refundable R' + FEES.deposit + ' deposit. ' + avail.length + ' ' + type + '(s) are currently available. We will confirm your visit on ' + when + '.';
         else if (topic === 'sponsor') msg = 'Thank you, ' + name + '. Sponsoring a kennel is R' + FEES.sponsor + ' per month. Kennels are available now; we will email payment details.';
         else msg = 'Thank you, ' + name + '. Volunteer places are open. Our coordinator will contact you about an orientation on ' + when + '.';
         out.textContent = msg; out.hidden = false; out.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); form.reset();
-      });
+      }).catch(function () { out.textContent = 'Sorry, we could not load availability right now. Please call 011 681 3600.'; out.hidden = false; });
     });
   }
 
@@ -127,7 +123,25 @@
     });
   }
 
-  initAdopt(); initLightbox(); initAccordion(); initEnquiry(); initContact();
+  /* ---- Generic validated forms that compile an email (cruelty report, volunteer sign-up) ---- */
+  function initMailForms() {
+    document.querySelectorAll('form[data-mail]').forEach(function (form) {
+      var out = $('#mail-result'); liveCheck(form);
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); out.hidden = true;
+        if (!validate(form)) { var bad = $('[aria-invalid=true]', form); if (bad) bad.focus(); return; }
+        var body = '';
+        form.querySelectorAll('input, textarea').forEach(function (f) { var l = form.querySelector('label[for=' + f.id + ']'); if (l) body += l.textContent + ': ' + (f.value.trim() || 'n/a') + '\n'; });
+        var a = el('a', 'btn btn-primary', 'Send email to info@jhbspca.co.za');
+        a.href = 'mailto:info@jhbspca.co.za?subject=' + encodeURIComponent(form.getAttribute('data-mail')) + '&body=' + encodeURIComponent(body);
+        out.textContent = 'Your details are valid. '; out.appendChild(a);
+        if (form.id === 'cruelty-form') out.appendChild(el('p', '', 'For an emergency please also call the 24-hour hotline: 011 386 3435.'));
+        out.hidden = false;
+      });
+    });
+  }
+
+  initMailForms(); initAdopt(); initLightbox(); initAccordion(); initEnquiry(); initContact();
   if (page === 'contact') {
     var css = document.createElement('link'); css.rel = 'stylesheet'; css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
     var js = document.createElement('script'); js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; js.onload = initMap; document.body.appendChild(js);

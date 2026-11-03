@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /Masemola_ST10527628-JohannesburgSPCA_part1_part2_
-Sitemap: https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/sitemap.xml
+Sitemap: https://johannesburganimalrescue.netlify.app/sitemap.xml
