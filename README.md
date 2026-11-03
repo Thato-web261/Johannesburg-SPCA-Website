@@ -58,22 +58,15 @@ Home (index.html)
 ## File and Folder Structure
 
 / (root)
-├── index.html
-├── about.html
-├── adopt.html
-├── contact.html
-├── cruelty.html
-├── donate.html
-├── education.html
-├── gallery.html
-├── news.html
-├── volunteer.html
+├── index.html, about.html, adopt.html, enquiry.html, contact.html, cruelty.html,
+│   donate.html, education.html, gallery.html, news.html, volunteer.html
 ├── style.css
-├── JOHANNESBURG SPCA/
-│   ├── gallery-1.jpg
-│   ├── gallery-2.jpg
-│   ├── gallery-3.jpg
-│   └── gallery-4.jpg
+├── script.js
+├── animals.json
+├── robots.txt
+├── sitemap.xml
+├── images/ (compressed JPG plus 400w and 720w WebP versions)
+└── screenshots/ (desktop, tablet and mobile evidence)
 
 ## References
 
@@ -104,8 +97,8 @@ details.* Available at: https://johannesburglists.com/johannesburg-spca/
 
 ## Part 3 — Functionality, SEO and Forms
 
-**Live site:** _add your deployed URL here (e.g. GitHub Pages / Netlify)_
-**Repository:** _add your GitHub repository URL here_
+**Live site:** https://johannesburganimalrescue.netlify.app/
+**Repository:** https://github.com/Thato-web261/Johannesburg-SPCA-Website
 
 ### Features added
 - **Dynamic content + search:** `adopt.html` builds its animal cards with JavaScript (`script.js`) with live name search, type filter and sort.
@@ -127,6 +120,25 @@ Johannesburg SPCA, adopt a pet Johannesburg, report animal cruelty, animal shelt
 - Fixed navigation links (removed `#anchor` suffixes) and added Enquiry to the menu on every page.
 - Added `robots.txt`, `sitemap.xml`, meta tags and CSP to every page.
 - Appended Part 3 styles to `style.css` (accordion, lightbox, validation errors, result box).
+
+- **Feedback (Part 2 content):** The Part 2 changelog entries for `<picture>`/`srcset` images, the adoption fee table and 7-step process, the expanded contact details (landline, after-hours line), the donate "other ways to help" list and the after-hours number in the cruelty banner were not actually present in the submitted files. They are now built into the pages.
+- **Real AJAX:** adoption animals are loaded with `fetch('animals.json')` on `adopt.html` and `enquiry.html`; the enquiry answer uses the fetched availability, with an error message if loading fails.
+- **Validation:** added JavaScript validation with inline errors to the cruelty report and volunteer forms (required fields, phone format, minimum lengths); valid forms produce a ready-to-send email.
+- **Page speed:** images renamed descriptively (e.g. `stray-dogs-jspca-kennel.jpg`), moved to `images/`, recompressed, and served as responsive WebP via `<picture>`/`srcset`; `loading="lazy"` plus width/height attributes prevent layout shift. The old `JOHANNESBURG SPCA/` folder was removed.
+- **CSP:** removed the `frame-ancestors` directive, which browsers ignore in a meta tag.
+
+### Responsive testing evidence
+Tested in Chromium at three sizes (desktop 1366×768, tablet 768×1024, mobile 375×667).
+
+| Page | Desktop | Tablet | Mobile |
+|---|---|---|---|
+| Home | ![](screenshots/index-desktop.png) | ![](screenshots/index-tablet.png) | ![](screenshots/index-mobile.png) |
+| Adopt | ![](screenshots/adopt-desktop.png) | ![](screenshots/adopt-tablet.png) | ![](screenshots/adopt-mobile.png) |
+
+### Off-page SEO plan
+- **Backlinks:** request links from the organisation's existing partners, local news pages and the references listed below.
+- **Social media:** share adoption stories and the website link on Facebook and Instagram.
+- **Local SEO:** keywords such as "Johannesburg", "Reuven" and "Booysens" are used in titles and copy; a Google Business Profile listing with the same address and phone number is recommended.
 
 ### References (additions)
 Leaflet. 2023. *Leaflet 1.9.4*. Available at: https://leafletjs.com/ [Accessed 3 November 2026].
