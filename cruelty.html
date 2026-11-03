@@ -7,13 +7,13 @@
 <title>Report Animal Cruelty | Johannesburg SPCA 24-Hour Hotline</title>
 <meta name="description" content="Report animal cruelty to the Johannesburg SPCA 24-hour inspectorate by phone or online form.">
 <meta name="robots" content="index, follow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; base-uri 'self'; form-action 'self' mailto:">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="canonical" href="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/cruelty.html">
+<link rel="canonical" href="https://johannesburganimalrescue.netlify.app/cruelty.html">
 <meta property="og:title" content="Report Animal Cruelty | Johannesburg SPCA 24-Hour Hotline">
 <meta property="og:description" content="Report animal cruelty to the Johannesburg SPCA 24-hour inspectorate by phone or online form.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/JOHANNESBURG SPCA/gallery-2.jpg">
+<meta property="og:image" content="https://johannesburganimalrescue.netlify.app/images/adoption-day-happy-ending.jpg">
 </head>
 <body data-page="cruelty">
 
@@ -41,7 +41,7 @@
 
 <div class="cruelty-banner">
 <p><strong>See an animal in danger?</strong> Call our 24-hour Cruelty Hotline:
-<a href="tel:0113863435">011 386 3435</a> — or <a href="cruelty.html">report it online</a>.</p>
+<a href="tel:0113863435">011 386 3435</a> (after hours: <a href="tel:0836041172">083 604 1172</a>) — or <a href="cruelty.html">report it online</a>.</p>
 </div>
 
 <main>
@@ -53,21 +53,22 @@ available 24 hours a day.</p>
 <p class="hotline"><strong>24-Hour Cruelty Hotline:</strong> <a href="tel:0113863435">011 386 3435</a></p>
 
 <h3>Online Cruelty Report Form</h3>
-<form>
+<form id="cruelty-form" data-mail="Cruelty report" novalidate>
 <label for="rname">Your Name (optional)</label>
-<input type="text" id="rname" name="rname">
+<input type="text" id="rname" name="rname" maxlength="60" autocomplete="name">
 
 <label for="rcontact">Contact Number</label>
-<input type="tel" id="rcontact" name="rcontact">
+<input type="tel" id="rcontact" name="rcontact" required pattern="(\+27|0)[0-9 ]{9,12}">
 
 <label for="rlocation">Location of Incident</label>
-<input type="text" id="rlocation" name="rlocation">
+<input type="text" id="rlocation" name="rlocation" required minlength="5" maxlength="150">
 
 <label for="rdetails">Details of Cruelty</label>
-<textarea id="rdetails" name="rdetails" rows="4"></textarea>
+<textarea id="rdetails" name="rdetails" rows="4" required minlength="20" maxlength="500"></textarea>
 
 <button type="submit" class="btn btn-orange">Submit Report</button>
 </form>
+<div class="result-box" id="mail-result" role="status" aria-live="polite" hidden></div>
 </section>
 
 </main>
@@ -100,3 +101,4 @@ https://johannesburglists.com/johannesburg-spca/</a>
 <script src="script.js" defer></script>
 </body>
 </html>
+
