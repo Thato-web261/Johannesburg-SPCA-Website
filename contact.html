@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Contact the Johannesburg SPCA | Phone, Email & Map</title>
+<meta name="description" content="Contact the Johannesburg SPCA by form, phone or email and find the shelter on the map.">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="canonical" href="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/contact.html">
+<meta property="og:title" content="Contact the Johannesburg SPCA | Phone, Email & Map">
+<meta property="og:description" content="Contact the Johannesburg SPCA by form, phone or email and find the shelter on the map.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/Johannesburg-SPCA-Website/JOHANNESBURG SPCA/gallery-2.jpg">
+</head>
+<body data-page="contact">
+
+<header>
+<h1>Johannesburg SPCA</h1>
+<p>Society for the Prevention of Cruelty to Animals — Reuven, Johannesburg</p>
+<nav>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About Us</a></li>
+<li><a href="education.html">Education</a></li>
+<li><a href="adopt.html">Adopt-a-Pet</a></li>
+<li><a href="enquiry.html">Enquiry</a></li>
+<li><a href="cruelty.html">Report Cruelty</a></li>
+<li><a href="gallery.html">Gallery</a></li>
+<li><a href="volunteer.html">Volunteer</a></li>
+<li><a href="news.html">News</a></li>
+<li><a href="contact.html" aria-current="page">Contact</a></li>
+<li><a href="donate.html">Donate / Sponsor-a-Kennel</a></li>
+</ul>
+</nav>
+</header>
+
+<!-- Cruelty report is kept visible above the fold, per the design brief -->
+
+<div class="cruelty-banner">
+<p><strong>See an animal in danger?</strong> Call our 24-hour Cruelty Hotline:
+<a href="tel:0113863435">011 386 3435</a> — or <a href="cruelty.html">report it online</a>.</p>
+</div>
+
+<main>
+<section id="contact">
+<h2>Contact Us</h2>
+<p><strong>Address:</strong> Reuven, Johannesburg, South Africa</p>
+<p><strong>Cruelty Hotline (24-hour):</strong> <a href="tel:0113863435">011 386 3435</a></p>
+<p><strong>Email:</strong> <a href="mailto:info@jhbspca.co.za">info@jhbspca.co.za</a></p>
+<div id="map" class="map-wrap" role="region" aria-label="Map showing the Johannesburg SPCA location"></div>
+<h3>Send us a message</h3>
+<form id="contact-form" action="mailto:info@jhbspca.co.za" method="post" enctype="text/plain" novalidate>
+<label for="c-name">Name</label><input id="c-name" name="name" type="text" required minlength="2" maxlength="60" autocomplete="name">
+<label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email">
+<label for="c-phone">Phone (optional)</label><input id="c-phone" name="phone" type="tel" pattern="(\+27|0)[0-9 ]{9,12}" autocomplete="tel">
+<label for="c-type">Type of message</label>
+<select id="c-type" name="type" required><option value="">Choose…</option><option>General question</option><option>Feedback</option><option>Media request</option><option>School visit</option><option>Donation query</option></select>
+<label for="c-msg">Message (10–500 characters)</label><textarea id="c-msg" name="message" rows="5" required minlength="10" maxlength="500"></textarea>
+<button type="submit" class="btn btn-primary">Prepare email</button>
+</form>
+<div id="contact-result" class="result-box" role="status" aria-live="polite" hidden></div>
+</section>
+</main>
+
+<!-- Sticky floating donate button, always reachable while scrolling -->
+
+<a href="donate.html" class="donate-float">Donate</a>
+
+<footer>
+<h3>References</h3>
+<p>Good Things Guy. 2023. The Johannesburg SPCA celebrates 121 years of animal protection.
+Available at:
+<a href="https://www.goodthingsguy.com/people/johannesburg-spca-121-birthday-animal-protection/">
+https://www.goodthingsguy.com/people/johannesburg-spca-121-birthday-animal-protection/</a>
+[Accessed 16 August 2026].</p>
+
+<p>Johannesburg SPCA. 2026. Home. Available at:
+<a href="https://jhbspca.co.za/">https://jhbspca.co.za/</a>
+[Accessed 16 August 2026].</p>
+
+<p>Johannesburg Lists. 2026. Johannesburg SPCA: Adoption, donations and contact details.
+Available at:
+<a href="https://johannesburglists.com/johannesburg-spca/">
+https://johannesburglists.com/johannesburg-spca/</a>
+[Accessed 16 August 2026].</p>
+
+<p>&copy; 2026 Johannesburg SPCA. All rights reserved.</p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
